@@ -40,13 +40,17 @@ namespace FPSGame
             // 생성한 Ray를 발사(Raycast).
             if (Physics.Raycast(ray, out RaycastHit hit, 10000f))
             {
+                if(hit.collider.CompareTag("Enemy"))
                 // 조준된 물체가 있을 때, 조준 색상으로 설정.
-                aimTarget.color = targetDetectedColor;
+                    aimTarget.color = targetDetectedColor;
+                else
+                    // 조준된 물체가 없으면, 원래 색상으로 설정.
+                    aimTarget.color = targetUndetectecColor;
 
                 // Ray와 부딪힌 물체가 있으면, 부딪힌 물체의 위치를 향하도록 발사 각도 조정.
                 muzzleTransform.rotation = Quaternion.LookRotation(
-                                hit.point - muzzleTransform.position
-                            );
+                                    hit.point - muzzleTransform.position
+                                );
             }
             else
             {
